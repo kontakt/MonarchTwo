@@ -29,16 +29,27 @@
      A3  ADXL193 Output
 */
 
+//// Includes ////
 #include "libraries/SparkFun_LSM9DS1/SparkFunLSM9DS1.h"   // 9DOF Sensor
-#include "libraries/Adafruit_ADS1X15/Adafruit_ADS1015.h"  // ADC
+#include "libraries/Adafruit_ADS1X15/Adafruit_ADS1015.h"  // 16 Bit ADC
 #include "libraries/ITG3701/ITG3701.h"                    // ITG3701
+#include <Wire.h>                                         // I2C
+#include <SPI.h>                                          // SPI
+
+//// Object declarations ////
+LSM9DS1           LSM;    // Declare 9DOF object  (addr 0x1E, 0x6B)
+Adafruit_ADS1115  ADS;    // Declare ADC object   (addr 0x48)
 
 void setup() {
-  // put your setup code here, to run once:
-
+  LSM.settings.device.commInterface = IMU_MODE_I2C;
+  LSM.settings.device.mAddress      = 0x1E;
+  LSM.settings.device.agAddress     = 0x6B;
+  LSM.begin();          // Initialize the 9DOF
+  ADS.begin();          // Initialzie the ADC
+  Serial.begin(115200); // Intialize serial line
+  Serial.println("Setup successfully completed"); // Announce the completion of setup
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
 }
