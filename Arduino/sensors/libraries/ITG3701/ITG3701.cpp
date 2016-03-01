@@ -74,8 +74,7 @@ uint8_t ITG3701::I2CreadByte(uint8_t address, uint8_t subAddress)
 void ITG3701::I2CreadBytes(uint8_t address, uint8_t subAddress, uint8_t * dest, uint8_t count)
 {
 	Wire.beginTransmission(address);   // Initialize the Tx buffer
-	// Next send the register to be read. OR with 0x80 to indicate multi-read.
-	Wire.write(subAddress | 0x80);     // Put slave register address in Tx buffer
+	Wire.write(subAddress);     // Put slave register address in Tx buffer
 	Wire.endTransmission(false);       // Send the Tx buffer, but send a restart to keep connection alive
 	uint8_t i = 0;
 	Wire.requestFrom(address, count);  // Read bytes from slave register address
